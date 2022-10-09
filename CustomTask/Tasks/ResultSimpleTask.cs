@@ -1,9 +1,11 @@
-﻿namespace CustomTask.Tasks;
-
-public class ResultSimpleTask : SimpleTask<TaskResult>
+﻿namespace CustomTask.Tasks
 {
-    public void Complete(bool result, string log = "")
+    public class ResultSimpleTask : SimpleTask<TaskResult>
     {
-        Complete(new TaskResult(result, log));
+        public void Complete(bool result, string log = "")
+        {
+            Complete(new TaskResult(result, log));
+        }
     }
 }
+

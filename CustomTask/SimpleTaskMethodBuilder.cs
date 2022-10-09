@@ -1,47 +1,48 @@
 ﻿using System.Runtime.CompilerServices;
 using CustomTask.Awaiters;
 
-namespace CustomTask;
-
-public sealed class SimpleTaskMethodBuilder<T>
+namespace CustomTask
 {
-    private readonly CustomAwaiter<T> _awaiter = new CustomAwaiter<T>();
-
-    public static SimpleTaskMethodBuilder<T> Create() => new();
-
-    public void SetResult(T result)
+    public sealed class SimpleTaskMethodBuilder<T>
     {
-        _awaiter.Complete(result);
-    }
+        private readonly CustomAwaiter<T> _awaiter = new CustomAwaiter<T>();
 
-    public void SetStateMachine(IAsyncStateMachine stateMachine)
-    {
-    }
+        public static SimpleTaskMethodBuilder<T> Create() => new SimpleTaskMethodBuilder<T>();
 
-    public void AwaitUnsafeOnCompleted<TAwaiter, TStateMachine>
-        (ref TAwaiter awaiter, ref TStateMachine stateMachine) 
-        where TAwaiter : ICriticalNotifyCompletion where TStateMachine : IAsyncStateMachine
-    {
-        awaiter.OnCompleted(stateMachine.MoveNext);
-    }
+        public void SetResult(T result)
+        {
+            _awaiter.Complete(result);
+        }
 
-    public void AwaitOnCompleted<TAwaiter, TStateMachine>
-        (ref TAwaiter awaiter, ref TStateMachine stateMachine) 
-        where TAwaiter : INotifyCompletion where TStateMachine : IAsyncStateMachine
-    {
-        awaiter.OnCompleted(stateMachine.MoveNext);
-    }
+        public void SetStateMachine(IAsyncStateMachine stateMachine)
+        {
+        }
 
-    public void Start<TStateMachine>(ref TStateMachine stateMachine)
-        where TStateMachine : IAsyncStateMachine
-    {
-        stateMachine.MoveNext();
-    }
+        public void AwaitUnsafeOnCompleted<TAwaiter, TStateMachine>
+            (ref TAwaiter awaiter, ref TStateMachine stateMachine)
+            where TAwaiter : ICriticalNotifyCompletion where TStateMachine : IAsyncStateMachine
+        {
+            awaiter.OnCompleted(stateMachine.MoveNext);
+        }
 
-    public void SetException(Exception exception)
-    {
-        throw exception;
-    }
+        public void AwaitOnCompleted<TAwaiter, TStateMachine>
+            (ref TAwaiter awaiter, ref TStateMachine stateMachine)
+            where TAwaiter : INotifyCompletion where TStateMachine : IAsyncStateMachine
+        {
+            awaiter.OnCompleted(stateMachine.MoveNext);
+        }
 
-    public CustomAwaiter<T> Task => _awaiter;
+        public void Start<TStateMachine>(ref TStateMachine stateMachine)
+            where TStateMachine : IAsyncStateMachine
+        {
+            stateMachine.MoveNext();
+        }
+
+        public void SetException(Exception exception)
+        {
+            throw exception;
+        }
+
+        public CustomAwaiter<T> Task => _awaiter;
+    }
 }

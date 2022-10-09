@@ -1,31 +1,32 @@
 ﻿using CustomTask.Awaiters;
 
-namespace CustomTask.Tasks;
-
-public class TimeoutResultSimpleTask : ResultSimpleTask
+namespace CustomTask.Tasks
 {
-    protected CancellationTokenSource _cancel = new();
-
-    public async CustomAwaiter<TaskResult> Wait(int timeout)
+    public class TimeoutResultSimpleTask : ResultSimpleTask
     {
-        Timeout(timeout);
-        var result = await Wait();
-        _cancel?.Cancel();
-        return result;
-    }
+        protected CancellationTokenSource _cancel = new CancellationTokenSource();
 
-    private async void Timeout(int timeout)
-    {
-        try
+        public async CustomAwaiter<TaskResult> Wait(int timeout)
         {
-            await Task.Delay(timeout, _cancel.Token);
-        }
-        catch
-        {
-            return;
+            Timeout(timeout);
+            var result = await Wait();
+            _cancel?.Cancel();
+            return result;
         }
 
-        _cancel = null;
-        Complete(new TaskResult(false, "timeout"));
+        private async void Timeout(int timeout)
+        {
+            try
+            {
+                await Task.Delay(timeout, _cancel.Token);
+            }
+            catch
+            {
+                return;
+            }
+
+            _cancel = null;
+            Complete(new TaskResult(false, "timeout"));
+        }
     }
 }

@@ -1,38 +1,40 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace CustomTask.Awaiters;
-
-[AsyncMethodBuilder(typeof(SimpleTaskMethodBuilder<>))]
-public class CustomAwaiter<T> : IAwaiter<T>
+namespace CustomTask.Awaiters
 {
-    private Action _continuation;
-    private T _value;
-
-    public void OnCompleted(Action continuation)
+    [AsyncMethodBuilder(typeof(SimpleTaskMethodBuilder<>))]
+    public class CustomAwaiter<T> : IAwaiter<T>
     {
-        if (IsCompleted)
+        private Action _continuation;
+        private T _value;
+
+        public void OnCompleted(Action continuation)
         {
-            continuation?.Invoke();
+            if (IsCompleted)
+            {
+                continuation?.Invoke();
+            }
+            else
+            {
+                _continuation = continuation;
+            }
         }
-        else
+
+        public void Complete(T value)
         {
-            _continuation = continuation;
+            _value = value;
+            IsCompleted = true;
+            _continuation?.Invoke();
         }
-    }
 
-    public void Complete(T value)
-    {
-        _value = value;
-        IsCompleted = true;
-        _continuation?.Invoke();
-    }
+        public IAwaiter<T> GetAwaiter() => this;
 
-    public IAwaiter<T> GetAwaiter() => this;
+        public bool IsCompleted { get; private set; }
 
-    public bool IsCompleted { get; private set; }
-
-    public T GetResult()
-    {
-        return _value;
+        public T GetResult()
+        {
+            return _value;
+        }
     }
 }
+

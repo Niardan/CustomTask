@@ -1,28 +1,30 @@
 ﻿using CustomTask.Awaiters;
 
-namespace CustomTask.Tasks;
-
-public class SimpleTask<T>
+namespace CustomTask.Tasks
 {
-    public CustomAwaiter<T> _task;
-
-    public SimpleTask()
+    public class SimpleTask<T>
     {
-        _task = new CustomAwaiter<T>();
-    }
+        public CustomAwaiter<T> _task;
 
-    public CustomAwaiter<T> Wait()
-    {
-        return _task;
-    }
-
-    public void Complete(T value)
-    {
-        if (_task != null)
+        public SimpleTask()
         {
-            var task = _task;
-            _task = null;
-            task.Complete(value);
+            _task = new CustomAwaiter<T>();
+        }
+
+        public CustomAwaiter<T> Wait()
+        {
+            return _task;
+        }
+
+        public void Complete(T value)
+        {
+            if (_task != null)
+            {
+                var task = _task;
+                _task = null;
+                task.Complete(value);
+            }
         }
     }
 }
+

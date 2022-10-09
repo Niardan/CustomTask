@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>CustomTask</Title>
@@ -12,7 +12,9 @@
     <Description>Simple implementation of asynchronous call waiting completed</Description>
     <PackageProjectUrl>https://github.com/Niardan/CustomTask</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Niardan/CustomTask</RepositoryUrl>
-    <NeutralLanguage>aa-ET</NeutralLanguage>
+    <PackageTags>async; task; await</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
 </Project>

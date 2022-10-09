@@ -1,19 +1,20 @@
-﻿namespace CustomTask.Tasks;
-
-public class TaskResult
+﻿namespace CustomTask.Tasks
 {
-    public TaskResult(bool isSuccess, string log)
+    public class TaskResult
     {
-        IsSuccess = isSuccess;
-        Log = log;
-    }
+        public TaskResult(bool isSuccess, string log)
+        {
+            IsSuccess = isSuccess;
+            Log = log;
+        }
 
-    public TaskResult(bool isSuccess)
-    {
-        IsSuccess = isSuccess;
-        Log = "";
-    }
+        public TaskResult(bool isSuccess)
+        {
+            IsSuccess = isSuccess;
+            Log = "";
+        }
 
-    public bool IsSuccess { get; }
-    public string Log { get; }
+        public bool IsSuccess { get; }
+        public string Log { get; }
+    }
 }
