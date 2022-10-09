@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>CustomTask</Title>
+    <AssemblyVersion>0.1</AssemblyVersion>
+    <FileVersion>0.1</FileVersion>
+    <Version>0.1</Version>
+    <Authors>Vadim Kotov</Authors>
+    <Description>Simple implementation of asynchronous call waiting completed</Description>
+    <PackageProjectUrl>https://github.com/Niardan/CustomTask</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Niardan/CustomTask</RepositoryUrl>
+    <NeutralLanguage>aa-ET</NeutralLanguage>
+  </PropertyGroup>
+
+</Project>

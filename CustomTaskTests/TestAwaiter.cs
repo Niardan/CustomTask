@@ -2,8 +2,9 @@
 using CustomTask.Tasks;
 using NUnit.Framework;
 
-namespace CustomTask.Test;
-[TestFixture]
+namespace CustomTaskTests;
+
+
 public class TestAwaiter
 {
     [Test]
