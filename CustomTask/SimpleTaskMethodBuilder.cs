@@ -5,7 +5,7 @@ namespace CustomTask
 {
     public sealed class SimpleTaskMethodBuilder<T>
     {
-        private readonly CustomAwaiter<T> _awaiter = new CustomAwaiter<T>();
+        private readonly SimpleAwaiter<T> _awaiter = new SimpleAwaiter<T>();
 
         public static SimpleTaskMethodBuilder<T> Create() => new SimpleTaskMethodBuilder<T>();
 
@@ -40,9 +40,9 @@ namespace CustomTask
 
         public void SetException(Exception exception)
         {
-            throw exception;
+           _awaiter.SetException(exception);
         }
 
-        public CustomAwaiter<T> Task => _awaiter;
+        public SimpleAwaiter<T> Task => _awaiter;
     }
 }

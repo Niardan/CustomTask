@@ -8,5 +8,6 @@ namespace CustomTask.Awaiters
         T GetResult();
         void Complete(T value);
         IAwaiter<T> GetAwaiter();
+        void SetException(Exception ex);
     }
 }

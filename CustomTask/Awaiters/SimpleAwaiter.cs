@@ -3,10 +3,11 @@
 namespace CustomTask.Awaiters
 {
     [AsyncMethodBuilder(typeof(SimpleTaskMethodBuilder<>))]
-    public class CustomAwaiter<T> : IAwaiter<T>
+    public class SimpleAwaiter<T> : IAwaiter<T>
     {
         private Action _continuation;
         private T _value;
+        private Exception _ex;
 
         public void OnCompleted(Action continuation)
         {
@@ -28,11 +29,19 @@ namespace CustomTask.Awaiters
         }
 
         public IAwaiter<T> GetAwaiter() => this;
+        public void SetException(Exception ex)
+        {
+            _ex = ex;
+            IsCompleted = true;
+            _continuation?.Invoke();
+        }
 
         public bool IsCompleted { get; private set; }
 
         public T GetResult()
         {
+            if (_ex != null)
+                throw _ex;
             return _value;
         }
     }
